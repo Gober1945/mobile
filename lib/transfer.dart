@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'konfirmasi.dart'; // jangan lupa import file konfirmasi.dart
 
 class TransferPage extends StatelessWidget {
   const TransferPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController noRekCtrl = TextEditingController();
@@ -13,10 +15,10 @@ class TransferPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
-       leading: IconButton(
+        leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // Balik ke halaman sebelumnya
+            Navigator.pop(context);
           },
         ),
         title: const Text('Transfer', style: TextStyle(color: Colors.black)),
@@ -41,7 +43,7 @@ class TransferPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ahmad fauzan Hafiz Zaulloh',
+                        'Ahmad Fauzan Hafiz Zaulloh',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text('SeaBank : 12345678'),
@@ -117,8 +119,12 @@ class TransferPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Transfer diproses (simulasi).')),
+                  // pindah ke halaman KonfirmasiTransfer
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const KonfirmasiTransfer(),
+                    ),
                   );
                 },
                 child: const Text(

@@ -12,7 +12,7 @@ class InfoKelompok extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(  
       appBar: AppBar(
         title: const Text("Informasi Kelompok"),
         backgroundColor: Colors.orange,
