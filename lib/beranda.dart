@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'transfer.dart';
-import 'tariktunai.dart';
-import 'setortunai.dart';
-import 'topup.dart';
-
-import 'deposito.dart';
 import 'pengaturan.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,41 +22,24 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text("Total Saldo", style: TextStyle(color: Colors.white)),
                   SizedBox(height: 5),
-                  Text("Rp 1.000.000",
-                      style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Tabungan: Rp 1.000.000",
-                          style: TextStyle(color: Colors.white)),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DepositoPage(),
-                            ),
-                          );
-                        },
-                        child: Text("Buka Deposito",
-                            style: TextStyle(color: Colors.orange)),
-                      ),
-                    ],
+                  Text(
+                    "Rp 1.000.000",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
+                  SizedBox(height: 10),
+                  Text("Tabungan: Rp 1.000.000",
+                      style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
 
             SizedBox(height: 20),
 
-            // MENU GRID
+            // MENU GRID (bisa banyak, tapi aktif cuma 2)
             GridView.count(
               crossAxisCount: 3,
               shrinkWrap: true,
@@ -70,19 +48,19 @@ class HomePage extends StatelessWidget {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               children: [
-                _menuItem(context, Icons.send, "Transfer", TransferPage()),
-                _menuItem(context, Icons.arrow_downward, "Tarik Tunai", TarikTunaiPage()),
-                _menuItem(context, Icons.arrow_upward, "Setor Tunai", SetorTunaiPage()),
-                _menuItem(context, Icons.account_balance_wallet, "Top Up", TopUpPage()),
-                _menuItem(context, Icons.savings, "Deposito", DepositoPage()),
-                _menuItem(context, Icons.settings, "Pengaturan", SettingPage()),
+                _menuItem(context, Icons.send, "Transfer", TransferPage()), // aktif
+                _menuItem(context, Icons.settings, "Pengaturan", SettingPage()), // aktif
+                _menuItem(context, Icons.savings, "Deposito", null), // belum aktif
+                _menuItem(context, Icons.qr_code, "QR Code", null), // belum aktif
+                _menuItem(context, Icons.phone_android, "Pulsa", null), // belum aktif
+                _menuItem(context, Icons.history, "Riwayat", null), // belum aktif
               ],
             ),
           ],
         ),
       ),
 
-      // NAVBAR BAWAH
+      // NAVBAR BAWAH (semua icon tetap ada)
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.orange,
         items: [
@@ -96,13 +74,19 @@ class HomePage extends StatelessWidget {
   }
 
   /// Widget menu kotak
-  Widget _menuItem(BuildContext context, IconData icon, String title, Widget page) {
+  Widget _menuItem(BuildContext context, IconData icon, String title, Widget? page) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
-        );
+        if (page != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => page),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("$title belum tersedia")),
+          );
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -114,8 +98,13 @@ class HomePage extends StatelessWidget {
           children: [
             Icon(icon, color: Colors.white, size: 40),
             SizedBox(height: 8),
-            Text(title,
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),
