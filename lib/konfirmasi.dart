@@ -1,5 +1,24 @@
 import 'package:flutter/material.dart';
-import 'berhasil.dart'; // import file berhasil.dart
+import 'berhasil.dart'; // Import file berhasil.dart
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: false, // supaya tombol tidak ungu
+      ),
+      home: const KonfirmasiTransfer(),
+    );
+  }
+}
 
 class KonfirmasiTransfer extends StatelessWidget {
   const KonfirmasiTransfer({super.key});
@@ -18,7 +37,7 @@ class KonfirmasiTransfer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Bagian pengirim & penerima
+            // Bagian pengirim
             Row(
               children: [
                 const CircleAvatar(
@@ -31,8 +50,10 @@ class KonfirmasiTransfer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text("Pengirim dana",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(
+                        "Pengirim dana",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       Text("No. Rekening : 8537429837943"),
                     ],
                   ),
@@ -40,6 +61,8 @@ class KonfirmasiTransfer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
+
+            // Bagian penerima
             Row(
               children: [
                 const CircleAvatar(
@@ -52,22 +75,24 @@ class KonfirmasiTransfer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text("Penerima dana",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(
+                        "Penerima dana",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       Text("No. Rekening : 8537429837943"),
                     ],
                   ),
                 )
               ],
             ),
-
             const SizedBox(height: 20),
 
             // Card jumlah transfer
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
+                borderRadius: BorderRadius.circular(12),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -92,18 +117,24 @@ class KonfirmasiTransfer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const BerhasilTransfer()),
+                    builder: (context) => const BerhasilTransfer(),
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
+                foregroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
               child: const Text(
                 "Konfirmasi",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             )
           ],

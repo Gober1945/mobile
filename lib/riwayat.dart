@@ -1,121 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/transfer.dart';
-
-void main() {
-  runApp(const MyApp());
-}
 
 class RiwayatPage extends StatelessWidget {
   const RiwayatPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> transaksi = [
-      {
-        'nama': 'Dinda Firmanda',
-        'tipe': 'Transfer',
-        'tanggal': '28 Jul 2025, 09:33',
-        'nominal': 145093,
-        'tipe_transaksi': 'masuk',
-      },
-      {
-        'nama': 'Dinda Firmanda',
-        'tipe': 'Transfer',
-        'tanggal': '28 Jul 2025, 09:33',
-        'nominal': 145093,
-        'tipe_transaksi': 'keluar',
-      },
-      {
-        'nama': 'Dinda Firmanda',
-        'tipe': 'Transfer',
-        'tanggal': '28 Jul 2025, 09:33',
-        'nominal': 145093,
-        'tipe_transaksi': 'masuk',
-      },
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text('Riwayat Transaksi', style: TextStyle(color: Colors.black)),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.download, color: Colors.black),
-            onPressed: () {},
+        title: const Text("Riwayat Transaksi"),
+        backgroundColor: Colors.orange,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          // Contoh riwayat transaksi masuk
+          _buildRiwayatItem(
+            icon: Icons.arrow_downward,
+            title: "Transfer Masuk",
+            subtitle: "Dari: 08573291234",
+            amount: "+ Rp500.000",
+            amountColor: Colors.green,
+          ),
+          const SizedBox(height: 10),
+
+          // Contoh riwayat transaksi keluar
+          _buildRiwayatItem(
+            icon: Icons.arrow_upward,
+            title: "Transfer Keluar",
+            subtitle: "Ke: 0897654321",
+            amount: "- Rp250.000",
+            amountColor: Colors.red,
+          ),
+          const SizedBox(height: 10),
+
+          _buildRiwayatItem(
+            icon: Icons.arrow_upward,
+            title: "Transfer Keluar",
+            subtitle: "Ke: 08765432123",
+            amount: "- Rp1.000.000",
+            amountColor: Colors.red,
+          ),
+          const SizedBox(height: 10),
+
+          _buildRiwayatItem(
+            icon: Icons.arrow_downward,
+            title: "Transfer Masuk",
+            subtitle: "Dari: 08123456789",
+            amount: "+ Rp200.000",
+            amountColor: Colors.green,
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Search Bar
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Cari . . .',
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
+    );
+  }
 
-            // Tanggal Riwayat
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              color: Colors.grey[300],
-              child: const Text(
-                '28 Juli 2025',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 8),
-
-            // List Transaksi
-            Expanded(
-              child: ListView.builder(
-                itemCount: transaksi.length,
-                itemBuilder: (context, index) {
-                  final item = transaksi[index];
-                  final isMasuk = item['tipe_transaksi'] == 'masuk';
-                  return ListTile(
-                    leading: const CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colors.orange,
-                    ),
-                    title: Text(item['nama'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(item['tipe']),
-                        Text(item['tanggal'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                      ],
-                    ),
-                    trailing: Text(
-                      '${isMasuk ? '+' : '-'}Rp ${item['nominal'].toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
-                      style: TextStyle(
-                        color: isMasuk ? Colors.green : Colors.red,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+  Widget _buildRiwayatItem({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required String amount,
+    required Color amountColor,
+  }) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.orange,
+          child: Icon(icon, color: Colors.white),
+        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(subtitle),
+        trailing: Text(
+          amount,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: amountColor,
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'transfer.dart';
 import 'infokelompok.dart';
+import 'riwayat.dart'; // <-- Tambahkan import ini
 
 void main() {
   runApp(const MyApp());
@@ -112,7 +113,14 @@ class BerandaPage extends StatelessWidget {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const RiwayatPage(), // <-- Pindah ke RiwayatPage
+                              ),
+                            );
+                          },
                           child: const Text("Riwayat",
                               style: TextStyle(color: Colors.orange)),
                         )
