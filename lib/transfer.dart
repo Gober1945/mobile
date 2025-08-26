@@ -25,17 +25,17 @@ class TransferPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               color: Colors.grey[200],
-              child: Row(
+              child: const Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 24,
                     backgroundColor: Colors.grey,
                     child: Icon(Icons.person, color: Colors.white),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Ahmad fauzan Hafiz Zaulloh',
                         style: TextStyle(fontWeight: FontWeight.bold),
