@@ -3,11 +3,13 @@ import 'transfer.dart';
 import 'pengaturan.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Beranda"),
+        title: const Text("Beranda"),
         backgroundColor: Colors.orange,
       ),
       body: SingleChildScrollView(
@@ -15,36 +17,53 @@ class HomePage extends StatelessWidget {
           children: [
             // SALDO
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               color: Colors.orange,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Total Saldo", style: TextStyle(color: Colors.white)),
                   SizedBox(height: 5),
-                  Text(
-                    "Rp 1.000.000",
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  Text("Rp 1.000.000",
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
                   SizedBox(height: 10),
-                  Text("Tabungan: Rp 1.000.000",
-                      style: TextStyle(color: Colors.white)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Tabungan: Rp 1.000.000",
+                          style: TextStyle(color: Colors.white)),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DepositoPage(),
+                            ),
+                          );
+                        },
+                        child: Text("Buka Deposito",
+                            style: TextStyle(color: Colors.orange)),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // MENU GRID (bisa banyak, tapi aktif cuma 2)
             GridView.count(
               crossAxisCount: 3,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(16),
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(16),
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               children: [
@@ -63,7 +82,7 @@ class HomePage extends StatelessWidget {
       // NAVBAR BAWAH (semua icon tetap ada)
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.orange,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Beranda"),
           BottomNavigationBarItem(icon: Icon(Icons.send), label: "Bayar/Transfer"),
           BottomNavigationBarItem(icon: Icon(Icons.savings), label: "Deposito"),
