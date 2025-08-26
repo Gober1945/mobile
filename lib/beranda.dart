@@ -8,11 +8,13 @@ import 'deposito.dart';
 import 'pengaturan.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Beranda"),
+        title: const Text("Beranda"),
         backgroundColor: Colors.orange,
       ),
       body: SingleChildScrollView(
@@ -20,23 +22,23 @@ class HomePage extends StatelessWidget {
           children: [
             // SALDO
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               color: Colors.orange,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Total Saldo", style: TextStyle(color: Colors.white)),
-                  SizedBox(height: 5),
-                  Text("Rp 1.000.000",
+                  const Text("Total Saldo", style: TextStyle(color: Colors.white)),
+                  const SizedBox(height: 5),
+                  const Text("Rp 1.000.000",
                       style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Tabungan: Rp 1.000.000",
+                      const Text("Tabungan: Rp 1.000.000",
                           style: TextStyle(color: Colors.white)),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -50,7 +52,7 @@ class HomePage extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Text("Buka Deposito",
+                        child: const Text("Buka Deposito",
                             style: TextStyle(color: Colors.orange)),
                       ),
                     ],
@@ -59,18 +61,18 @@ class HomePage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // MENU GRID
             GridView.count(
               crossAxisCount: 3,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(16),
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(16),
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               children: [
-                _menuItem(context, Icons.send, "Transfer", TransferPage()),
+                _menuItem(context, Icons.send, "Transfer", const TransferPage()),
                 _menuItem(context, Icons.arrow_downward, "Tarik Tunai", TarikTunaiPage()),
                 _menuItem(context, Icons.arrow_upward, "Setor Tunai", SetorTunaiPage()),
                 _menuItem(context, Icons.account_balance_wallet, "Top Up", TopUpPage()),
@@ -85,7 +87,7 @@ class HomePage extends StatelessWidget {
       // NAVBAR BAWAH
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.orange,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Beranda"),
           BottomNavigationBarItem(icon: Icon(Icons.send), label: "Bayar/Transfer"),
           BottomNavigationBarItem(icon: Icon(Icons.savings), label: "Deposito"),
@@ -113,9 +115,9 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: Colors.white, size: 40),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(title,
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

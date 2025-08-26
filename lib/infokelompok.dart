@@ -8,34 +8,36 @@ class InfoKelompok extends StatelessWidget {
     {"nama": "Dinda Firmanda", "absen": "17"},
   ];
 
+  const InfoKelompok({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Informasi Kelompok"),
+        title: const Text("Informasi Kelompok"),
         backgroundColor: Colors.orange,
       ),
       body: Container(
         color: Colors.orange.shade50,
         child: ListView.builder(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           itemCount: anggota.length,
           itemBuilder: (context, index) {
             return Card(
               elevation: 4,
-              margin: EdgeInsets.only(bottom: 16),
+              margin: const EdgeInsets.only(bottom: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ListTile(
-                contentPadding: EdgeInsets.all(12),
-                leading: CircleAvatar(
+                contentPadding: const EdgeInsets.all(12),
+                leading: const CircleAvatar(
                   backgroundColor: Colors.orange,
                   child: Icon(Icons.person, color: Colors.white),
                 ),
                 title: Text(
                   anggota[index]["nama"]!,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Text("No. Absen : ${anggota[index]["absen"]}"),
               ),
