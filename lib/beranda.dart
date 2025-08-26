@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'transfer.dart';
+import 'tariktunai.dart';
+import 'setortunai.dart';
+import 'topup.dart';
+
+import 'deposito.dart';
 import 'pengaturan.dart';
 
 class HomePage extends StatelessWidget {
@@ -66,6 +71,10 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 16,
               children: [
                 _menuItem(context, Icons.send, "Transfer", TransferPage()),
+                _menuItem(context, Icons.arrow_downward, "Tarik Tunai", TarikTunaiPage()),
+                _menuItem(context, Icons.arrow_upward, "Setor Tunai", SetorTunaiPage()),
+                _menuItem(context, Icons.account_balance_wallet, "Top Up", TopUpPage()),
+                _menuItem(context, Icons.savings, "Deposito", DepositoPage()),
                 _menuItem(context, Icons.settings, "Pengaturan", SettingPage()),
               ],
             ),
