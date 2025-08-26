@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'transfer.dart';
 import 'infokelompok.dart';
-import 'riwayat.dart'; // <-- Tambahkan import ini
+import 'riwayat.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -30,33 +30,35 @@ class BerandaPage extends StatelessWidget {
           child: Column(
             children: [
               // Bagian Header
+              // Ganti bagian header lama dengan ini
               Container(
-                color: Colors.orange,
+                color: Colors.white,
                 padding: const EdgeInsets.all(16),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Nama & No Rekening
+                    // Bagian atas: profil + notifikasi
                     Row(
                       children: [
                         const CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white,
-                          child: Icon(Icons.person, color: Colors.orange),
+                          radius: 24,
+                          backgroundColor: Colors.orange,
+                          child: Icon(Icons.person, color: Colors.white),
                         ),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 12),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
                             Text(
                               "Nama Pemilik Rekening",
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                             ),
                             Text(
                               "No. Rekening : 98374298973943",
-                              style: TextStyle(color: Colors.white70),
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 12),
                             ),
                           ],
                         ),
@@ -66,7 +68,7 @@ class BerandaPage extends StatelessWidget {
                             IconButton(
                               onPressed: () {},
                               icon: const Icon(Icons.notifications,
-                                  color: Colors.white),
+                                  color: Colors.orange),
                             ),
                             Positioned(
                               right: 8,
@@ -91,66 +93,146 @@ class BerandaPage extends StatelessWidget {
                       ],
                     ),
 
-                    const SizedBox(height: 16),
-                    // Saldo
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text("Total Saldo",
-                                style: TextStyle(
-                                    color: Colors.white70, fontSize: 14)),
-                            SizedBox(height: 4),
-                            Text("Rp 1.000.000",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const RiwayatPage(), // <-- Pindah ke RiwayatPage
+                    const SizedBox(height: 12),
+
+                    // Card saldo
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 6,
+                            offset: const Offset(0, 3),
+                          )
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Total saldo + tombol riwayat
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Total Saldo",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 14),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: const [
+                                      Text(
+                                        "Rp 1.000.000",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      Icon(Icons.remove_red_eye,
+                                          color: Colors.white, size: 22),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            );
-                          },
-                          child: const Text("Riwayat",
-                              style: TextStyle(color: Colors.orange)),
-                        )
-                      ],
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: Colors.orange,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RiwayatPage(), // <-- Pindah ke RiwayatPage
+                                    ),
+                                  );
+                                },
+                                child: const Text("Riwayat",
+                                    style: TextStyle(color: Colors.orange)),
+                              )
+                            ],
+                          ),
+
+                          const SizedBox(height: 16),
+                          const Divider(color: Colors.white70),
+
+                          const SizedBox(height: 12),
+
+                          // Tabungan dan Deposito
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text("Tabungan   >",
+                                      style: TextStyle(color: Colors.white)),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    "Rp 1.000.000",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  const Text("Deposito   >",
+                                      style: TextStyle(color: Colors.white)),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        "Rp 0",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.yellow[700],
+                                          foregroundColor: Colors.brown,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                        ),
+                                        onPressed: () {},
+                                        child: const Text(
+                                          "Buka Deposito",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-
-                    const SizedBox(height: 16),
-
-                    // Tabungan dan Deposito
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Tabungan: Rp 1.000.000",
-                            style: TextStyle(color: Colors.white)),
-                        Row(
-                          children: [
-                            const Text("Deposito: Rp 0",
-                                style: TextStyle(color: Colors.white)),
-                            const SizedBox(width: 8),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.yellow[700]),
-                              onPressed: () {},
-                              child: const Text("Buka Deposito",
-                                  style: TextStyle(color: Colors.black)),
-                            ),
-                          ],
-                        )
-                      ],
-                    )
                   ],
                 ),
               ),
@@ -178,9 +260,10 @@ class BerandaPage extends StatelessWidget {
                     }),
                     _buildMenuItem(Icons.arrow_downward, "Tarik Tunai", () {}),
                     _buildMenuItem(Icons.arrow_upward, "Setor Tunai", () {}),
-                    _buildMenuItem(Icons.account_balance_wallet, "Top Up E-Wallet", () {}),
+                    _buildMenuItem(
+                        Icons.account_balance_wallet, "Top Up E-Wallet", () {}),
                     _buildMenuItem(Icons.savings, "Deposito", () {}),
-                    
+
                     // Pengaturan (pindah ke InfoKelompok)
                     _buildMenuItem(Icons.settings, "Pengaturan", () {
                       Navigator.push(
@@ -204,14 +287,12 @@ class BerandaPage extends StatelessWidget {
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
         items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home), label: "Beranda"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Beranda"),
           BottomNavigationBarItem(
               icon: Icon(Icons.compare_arrows), label: "Bayar/Transfer"),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_balance), label: "Deposito"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: "Saya"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Saya"),
         ],
       ),
     );
