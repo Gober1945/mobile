@@ -1,20 +1,5 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const KonfirmasiTransfer(),
-    );
-  }
-}
+import 'berhasil.dart'; // import file berhasil.dart
 
 class KonfirmasiTransfer extends StatelessWidget {
   const KonfirmasiTransfer({super.key});
@@ -103,7 +88,13 @@ class KonfirmasiTransfer extends StatelessWidget {
 
             // Tombol Konfirmasi
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BerhasilTransfer()),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
                 shape: RoundedRectangleBorder(
@@ -122,7 +113,8 @@ class KonfirmasiTransfer extends StatelessWidget {
   }
 
   Widget _rowText(String left, String right,
-      {Color textColor = Colors.black, FontWeight fontWeight = FontWeight.normal}) {
+      {Color textColor = Colors.black,
+      FontWeight fontWeight = FontWeight.normal}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
