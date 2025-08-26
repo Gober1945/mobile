@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'riwayat.dart';
 
 void main() {
   runApp(const MyApp());
