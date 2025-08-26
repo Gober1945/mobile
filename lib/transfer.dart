@@ -13,7 +13,12 @@ class TransferPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+       leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Balik ke halaman sebelumnya
+          },
+        ),
         title: const Text('Transfer', style: TextStyle(color: Colors.black)),
       ),
       body: Padding(
