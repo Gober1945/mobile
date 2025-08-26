@@ -1,18 +1,5 @@
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'M-Banking',
-      home: const TransferPage(),
-    );
-  }
-}
-
 class TransferPage extends StatelessWidget {
   const TransferPage({super.key});
 
