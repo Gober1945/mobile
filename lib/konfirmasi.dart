@@ -1,27 +1,18 @@
 import 'package:flutter/material.dart';
-import 'berhasil.dart'; // Import file berhasil.dart
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: false, // supaya tombol tidak ungu
-      ),
-      home: const KonfirmasiTransfer(),
-    );
-  }
-}
+import 'tranferberhasil.dart';
+import 'profil_data.dart';
 
 class KonfirmasiTransfer extends StatelessWidget {
-  const KonfirmasiTransfer({super.key});
+  final int nominal;
+  final String namaPenerima;
+  final String noRekening;
+
+  const KonfirmasiTransfer({
+    super.key,
+    required this.nominal,
+    required this.namaPenerima,
+    required this.noRekening,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +38,20 @@ class KonfirmasiTransfer extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Pengirim dana",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text("No. Rekening : 8537429837943"),
-                    ],
+                  child: ValueListenableBuilder<ProfileData>(
+                    valueListenable: profileNotifier,
+                    builder: (context, profile, _) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            profile.nama,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const Text("No. Rekening : 8537429837943"),
+                        ],
+                      );
+                    },
                   ),
                 )
               ],
@@ -74,12 +70,12 @@ class KonfirmasiTransfer extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
-                        "Penerima dana",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        namaPenerima, 
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text("No. Rekening : 8537429837943"),
+                      Text("No. Rekening : $noRekening"), // <-- ini juga
                     ],
                   ),
                 )
@@ -97,12 +93,13 @@ class KonfirmasiTransfer extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    _rowText("Jumlah Transfer", "Rp1.250.000"),
+                    _rowText("Jumlah Transfer", "Rp$nominal"),
                     const SizedBox(height: 12),
                     _rowText("Biaya Transfer", "Gratis",
                         textColor: Colors.green),
+                    _rowText("Catatan", "Tidak ada catatan"),
                     const Divider(height: 24),
-                    _rowText("Total", "Rp1.250.000",
+                    _rowText("Total", "Rp$nominal",
                         fontWeight: FontWeight.bold),
                   ],
                 ),
@@ -111,15 +108,26 @@ class KonfirmasiTransfer extends StatelessWidget {
 
             const Spacer(),
 
-            // Tombol Konfirmasi
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BerhasilTransfer(),
-                  ),
-                );
+                if (saldoNotifier.value >= nominal) {
+                  saldoNotifier.value -= nominal;
+
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TransferSuccessPage(
+                        namaPenerima: namaPenerima,
+                        noRekening: noRekening,
+                        nominal: nominal,
+                      ),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Saldo tidak mencukupi")),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
@@ -144,7 +152,7 @@ class KonfirmasiTransfer extends StatelessWidget {
   }
 
   Widget _rowText(String left, String right,
-      {Color textColor = Colors.black,
+      {Color textColor = const Color.fromARGB(255, 255, 255, 255),
       FontWeight fontWeight = FontWeight.normal}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'profil_data.dart';
 
 class BerhasilTransfer extends StatelessWidget {
   const BerhasilTransfer({super.key});
@@ -29,8 +30,16 @@ class BerhasilTransfer extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Detail transaksi
-              _rowText("Tanggal Transaksi", "29-12-2025"),
-              _rowText("Nama Pengirim", "Tembel"),
+              _rowText("Tanggal Transaksi", DateTime.now().toString()),
+              ValueListenableBuilder<ProfileData>(
+                    valueListenable: profileNotifier,
+                    builder: (context, profile, _) {
+                      return  _rowText(
+                        "Nama Pengirim",
+                        profile.nama,
+                      );
+                    },
+                  ),
               _rowText("Nama Penerima", "Ban Motor"),
               _rowText("No. Rekening Tujuan", "124672352234"),
               _rowText("Nominal Transaksi", "Rp. 300.000"),
@@ -51,7 +60,7 @@ class BerhasilTransfer extends StatelessWidget {
                   child: const Text(
                     "Kembali",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black),
+                        fontWeight: FontWeight.bold, color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                 ),
               )

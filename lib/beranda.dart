@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'transfer.dart';
 import 'infokelompok.dart';
-import 'riwayat.dart'; 
+import 'profil.dart';
+import 'profil_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +20,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class BerandaPage extends StatelessWidget {
+class BerandaPage extends StatefulWidget {
   const BerandaPage({super.key});
+
+  @override
+  State<BerandaPage> createState() => _BerandaPageState();
+}
+
+class _BerandaPageState extends State<BerandaPage> {
+  bool _isVisible = true; // default: saldo kelihatan
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +38,6 @@ class BerandaPage extends StatelessWidget {
           child: Column(
             children: [
               // Bagian Header
-              // Ganti bagian header lama dengan ini
               Container(
                 color: Colors.white,
                 padding: const EdgeInsets.all(16),
@@ -39,28 +46,51 @@ class BerandaPage extends StatelessWidget {
                     // Bagian atas: profil + notifikasi
                     Row(
                       children: [
-                        const CircleAvatar(
-                          radius: 24,
-                          backgroundColor: Colors.orange,
-                          child: Icon(Icons.person, color: Colors.white),
-                        ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Nama Pemilik Rekening",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ProfilePage(),
+                              ),
+                            );
+                          },
+                          child: ValueListenableBuilder<ProfileData>(
+                            valueListenable: profileNotifier,
+                            builder: (context, profile, _) => CircleAvatar(
+                              radius: 24,
+                              backgroundColor: Colors.orange,
+                              child: Icon(
+                                profile.avatar == 1
+                                    ? Icons.face
+                                    : profile.avatar == 2
+                                        ? Icons.star
+                                        : Icons.person,
+                                color: Colors.white,
                               ),
                             ),
-                            Text(
-                              "No. Rekening : 98374298973943",
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 12),
-                            ),
-                          ],
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        ValueListenableBuilder<ProfileData>(
+                          valueListenable: profileNotifier,
+                          builder: (context, profile, _) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                profile.nama,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Text(
+                                "No. Rekening : 98374298973943",
+                                style: const TextStyle(
+                                    color: Colors.black54, fontSize: 12),
+                              ),
+                            ],
+                          ),
                         ),
                         const Spacer(),
                         Stack(
@@ -113,57 +143,68 @@ class BerandaPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Total saldo + tombol riwayat
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          ValueListenableBuilder<int>(
+                            valueListenable: saldoNotifier,
+                            builder: (context, saldo, _) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
-                                    "Total Saldo",
-                                    style: TextStyle(
-                                        color: Colors.white70, fontSize: 14),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    children: const [
-                                      Text(
-                                        "Rp 1.000.000",
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "Total Saldo",
                                         style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 28,
-                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white70,
+                                          fontSize: 14,
                                         ),
                                       ),
-                                      SizedBox(width: 8),
-                                      Icon(Icons.remove_red_eye,
-                                          color: Colors.white, size: 22),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            _isVisible
+                                                ? "Rp ${saldo.toString()}"
+                                                : "*****",
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _isVisible = !_isVisible;
+                                              });
+                                            },
+                                            child: Icon(
+                                              _isVisible
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              color: Colors.white,
+                                              size: 22,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                ],
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  foregroundColor: Colors.orange,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RiwayatPage(), // <-- Pindah ke RiwayatPage
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      foregroundColor: Colors.orange,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
                                     ),
-                                  );
-                                },
-                                child: const Text("Riwayat",
-                                    style: TextStyle(color: Colors.orange)),
-                              )
-                            ],
+                                    onPressed: () {},
+                                    child: const Text("Riwayat >"),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
 
                           const SizedBox(height: 16),
@@ -263,7 +304,6 @@ class BerandaPage extends StatelessWidget {
                     _buildMenuItem(
                         Icons.account_balance_wallet, "Top Up E-Wallet", () {}),
                     _buildMenuItem(Icons.savings, "Deposito", () {}),
-
                     // Pengaturan (pindah ke InfoKelompok)
                     _buildMenuItem(Icons.settings, "Pengaturan", () {
                       Navigator.push(

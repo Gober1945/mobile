@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'konfirmasi.dart'; // jangan lupa import file konfirmasi.dart
+import 'konfirmasi.dart';
+import 'profil_data.dart';
 
 class TransferPage extends StatelessWidget {
   const TransferPage({super.key});
@@ -10,6 +11,7 @@ class TransferPage extends StatelessWidget {
     final TextEditingController namaCtrl = TextEditingController();
     final TextEditingController nominalCtrl = TextEditingController();
     final TextEditingController catatanCtrl = TextEditingController();
+    final profile = profileNotifier.value;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +33,7 @@ class TransferPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               color: Colors.grey[200],
-              child: const Row(
+              child: Row(
                 children: [
                   CircleAvatar(
                     radius: 24,
@@ -43,10 +45,10 @@ class TransferPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ahmad Fauzan Hafiz Zaulloh',
+                        profile.nama,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text('SeaBank : 12345678'),
+                      Text('SeaBank : 98374298973943'),
                     ],
                   ),
                 ],
@@ -90,7 +92,7 @@ class TransferPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.all(8),
               color: Colors.grey[200],
-              child: const Text('Saldo Anda : Rp. 1.000.000.000.000'),
+              child: const Text('Saldo Anda : Rp. 1.000.000'),
             ),
             const SizedBox(height: 16),
 
@@ -119,17 +121,29 @@ class TransferPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 onPressed: () {
-                  // pindah ke halaman KonfirmasiTransfer
+                  final nominal = int.tryParse(nominalCtrl.text.trim()) ?? 0;
+
+                  if (nominal <= 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Nominal tidak valid")),
+                    );
+                    return;
+                  }
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const KonfirmasiTransfer(),
+                      builder: (context) => KonfirmasiTransfer(
+                        nominal: nominal,
+                        namaPenerima: namaCtrl.text.trim(),
+                        noRekening: noRekCtrl.text.trim(),
+                      ),
                     ),
                   );
                 },
                 child: const Text(
                   'Lanjut',
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 16),
                 ),
               ),
             ),
