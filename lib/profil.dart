@@ -2,24 +2,7 @@ import 'package:flutter/material.dart';
 import 'profil_data.dart';
 
 
-<<<<<<< HEAD
-class MyProfileApp extends StatelessWidget {
-  const MyProfileApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Profil Saya',
-      debugShowCheckedModeBanner: false,
-      home: ProfilePage(),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-=======
 class ProfilePage extends StatefulWidget {
->>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
   const ProfilePage({super.key});
 
   @override
@@ -87,49 +70,11 @@ void initState() {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-<<<<<<< HEAD
-                const Text(
-                  "Foto",
-                  style: TextStyle(fontSize: 16),
-                ),
-                const Spacer(),
-
-                // Efek 3D pada Foto Profil
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
-                        blurRadius: 8,
-                        offset: const Offset(2, 4),
-                      ),
-                    ],
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 3,
-                    ),
-                  ),
-                  child: const CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.orange,
-                    child: Icon(
-                      Icons.person,
-                      size: 35,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(width: 8),
-                const Icon(Icons.arrow_forward_ios, size: 16),
-=======
                 _avatarOption(0, Icons.person),
                 const SizedBox(width: 16),
                 _avatarOption(1, Icons.face),
                 const SizedBox(width: 16),
                 _avatarOption(2, Icons.star),
->>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
               ],
             ),
             const SizedBox(height: 24),
@@ -138,76 +83,12 @@ void initState() {
               controller: namaController,
               decoration: const InputDecoration(labelText: "Nama"),
             ),
-<<<<<<< HEAD
-            child: const Column(
-              children: [
-                ListTile(
-                  title: Text(
-                    "Nama",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  trailing: Text(
-                    "Contoh Nama User",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                Divider(height: 1),
-                ListTile(
-                  title: Text(
-                    "No. Handphone",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "085********967",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(Icons.arrow_forward_ios, size: 16),
-                    ],
-                  ),
-                ),
-                Divider(height: 1),
-                ListTile(
-                  title: Text(
-                    "Email",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "contohemailyainiy....",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(Icons.arrow_forward_ios, size: 16),
-                    ],
-                  ),
-                ),
-              ],
-=======
             const SizedBox(height: 12),
             // Form No HP
             TextField(
               controller: noHpController,
               decoration: const InputDecoration(labelText: "No. Handphone"),
               keyboardType: TextInputType.phone,
->>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
             ),
             const SizedBox(height: 12),
             // Form Email

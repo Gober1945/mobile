@@ -131,7 +131,7 @@ class KonfirmasiTransfer extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
-                foregroundColor: Colors.black,
+                foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
