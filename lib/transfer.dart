@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -15,6 +16,10 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+=======
+import 'konfirmasi.dart';
+import 'profil_data.dart';
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
 
 >>>>>>> b2b58a0c45218ab22f06586579d0f5ee3bd32b0e
 class TransferPage extends StatelessWidget {
@@ -26,12 +31,18 @@ class TransferPage extends StatelessWidget {
     final TextEditingController namaCtrl = TextEditingController();
     final TextEditingController nominalCtrl = TextEditingController();
     final TextEditingController catatanCtrl = TextEditingController();
+    final profile = profileNotifier.value;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text('Transfer', style: TextStyle(color: Colors.black)),
       ),
       body: Padding(
@@ -42,7 +53,7 @@ class TransferPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               color: Colors.grey[200],
-              child: const Row(
+              child: Row(
                 children: [
                   CircleAvatar(
                     radius: 24,
@@ -54,10 +65,10 @@ class TransferPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ahmad fauzan Hafiz Zaulloh',
+                        profile.nama,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text('SeaBank : 12345678'),
+                      Text('SeaBank : 98374298973943'),
                     ],
                   ),
                 ],
@@ -101,7 +112,7 @@ class TransferPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.all(8),
               color: Colors.grey[200],
-              child: const Text('Saldo Anda : Rp. 1.000.000.000.000'),
+              child: const Text('Saldo Anda : Rp. 1.000.000'),
             ),
             const SizedBox(height: 16),
 
@@ -130,8 +141,24 @@ class TransferPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Transfer diproses (simulasi).')),
+                  final nominal = int.tryParse(nominalCtrl.text.trim()) ?? 0;
+
+                  if (nominal <= 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Nominal tidak valid")),
+                    );
+                    return;
+                  }
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => KonfirmasiTransfer(
+                        nominal: nominal,
+                        namaPenerima: namaCtrl.text.trim(),
+                        noRekening: noRekCtrl.text.trim(),
+                      ),
+                    ),
                   );
                 },
                 child: const Text(

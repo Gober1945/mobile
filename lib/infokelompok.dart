@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class InfoKelompok extends StatelessWidget {
-  final List<Map<String, String>> anggota = [
+  static const List<Map<String, String>> anggota = [
     {"nama": "Afria Reva Ferdinand", "absen": "03"},
     {"nama": "Ahmad Amirul Fauzan", "absen": "04"},
     {"nama": "Azzahra Nurayu Mutiara", "absen": "07"},
@@ -12,7 +12,7 @@ class InfoKelompok extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(  
       appBar: AppBar(
         title: const Text("Informasi Kelompok"),
         backgroundColor: Colors.orange,

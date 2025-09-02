@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 
 void main() {
   runApp(const TransferApp());
@@ -16,9 +17,21 @@ class TransferApp extends StatelessWidget {
     );
   }
 }
+=======
+import 'profil_data.dart';
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
 
 class TransferSuccessPage extends StatelessWidget {
-  const TransferSuccessPage({super.key});
+  final String namaPenerima;
+  final String noRekening;
+  final int nominal;
+
+  const TransferSuccessPage({
+    super.key,
+    required this.namaPenerima,
+    required this.noRekening,
+    required this.nominal,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +67,7 @@ class TransferSuccessPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
+<<<<<<< HEAD
                   TransactionRow(
                       title: "Tanggal Transaksi", value: "29-12-2025"),
                   TransactionRow(title: "Nama Pengirim", value: "Tembel"),
@@ -62,6 +76,33 @@ class TransferSuccessPage extends StatelessWidget {
                       title: "No. Rekening Tujuan", value: "124672352234"),
                   TransactionRow(
                       title: "Nominal Transaksi", value: "Rp. 300.000"),
+=======
+                  ValueListenableBuilder<ProfileData>(
+                    valueListenable: profileNotifier,
+                    builder: (context, profile, _) {
+                      return _buildDetailRow('Nama Pengirim', profile.nama);
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  ValueListenableBuilder<ProfileData>(
+                    valueListenable: profileNotifier,
+                    builder: (context, profile, _) {
+                      return _buildDetailRow('No. Rekening', "8537429837943");
+                    },
+                  ),
+                  const SizedBox(height: 12),
+
+                  _buildDetailRow('Nama Penerima', namaPenerima),
+
+                  // Nomor rekening
+                  _buildDetailRow('No. Rekening', noRekening),
+
+                  // Nominal transfer
+                  _buildDetailRow(
+                    'Nominal Transfer',
+                    'Rp ${nominal.toString()}',
+                  ),
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
                 ],
               ),
             ),
@@ -97,20 +138,8 @@ class TransferSuccessPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class TransactionRow extends StatelessWidget {
-  final String title;
-  final String value;
-
-  const TransactionRow({
-    super.key,
-    required this.title,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildDetailRow(String title, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'profil_data.dart';
 
-void main() {
-  runApp(const MyProfileApp());
-}
 
+<<<<<<< HEAD
 class MyProfileApp extends StatelessWidget {
   const MyProfileApp({super.key});
 
@@ -18,41 +17,77 @@ class MyProfileApp extends StatelessWidget {
 }
 
 class ProfilePage extends StatelessWidget {
+=======
+class ProfilePage extends StatefulWidget {
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  int selectedAvatar = 0; // 0: person, 1: face, 2: star
+late TextEditingController namaController = 
+    TextEditingController(text: profileNotifier.value.nama);
+
+late TextEditingController noHpController = 
+    TextEditingController(text: profileNotifier.value.noHp);
+
+late TextEditingController emailController = 
+    TextEditingController(text: profileNotifier.value.email);
+
+@override
+void initState() {
+  super.initState();
+  selectedAvatar = profileNotifier.value.avatar ?? 0;
+}
+
+  void _saveProfile() {
+    profileNotifier.value = ProfileData(
+      nama: namaController.text,
+      noHp: noHpController.text,
+      email: emailController.text,
+      avatar: selectedAvatar,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Profil berhasil disimpan!')),
+    );
+  }
+
+  @override
+  void dispose() {
+    namaController.dispose();
+    noHpController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white, // warna putih
+        backgroundColor: Colors.white,
         elevation: 0.5,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          "Profil saya",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold, // teks tebal
-          ),
+          "Edit Profil",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 10),
-
-          // Garis atas oranye
-          const Divider(color: Colors.orange, thickness: 1),
-
-          // Foto Profil
-          Container(
-            padding: const EdgeInsets.all(16),
-            alignment: Alignment.centerLeft,
-            child: Row(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            // Pilih Avatar
+            const Text("Pilih Avatar", style: TextStyle(fontSize: 16)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+<<<<<<< HEAD
                 const Text(
                   "Foto",
                   style: TextStyle(fontSize: 16),
@@ -88,29 +123,22 @@ class ProfilePage extends StatelessWidget {
 
                 const SizedBox(width: 8),
                 const Icon(Icons.arrow_forward_ios, size: 16),
+=======
+                _avatarOption(0, Icons.person),
+                const SizedBox(width: 16),
+                _avatarOption(1, Icons.face),
+                const SizedBox(width: 16),
+                _avatarOption(2, Icons.star),
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
               ],
             ),
-          ),
-
-          // Garis bawah oranye
-          const Divider(color: Colors.orange, thickness: 1),
-
-          const SizedBox(height: 10),
-
-          // Kotak Data Profil
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color: Colors.orange.shade100, // warna agak oranye
-              borderRadius: BorderRadius.circular(12), // sudut tumpul
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 6,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+            const SizedBox(height: 24),
+            // Form Nama
+            TextField(
+              controller: namaController,
+              decoration: const InputDecoration(labelText: "Nama"),
             ),
+<<<<<<< HEAD
             child: const Column(
               children: [
                 ListTile(
@@ -172,9 +200,44 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
               ],
+=======
+            const SizedBox(height: 12),
+            // Form No HP
+            TextField(
+              controller: noHpController,
+              decoration: const InputDecoration(labelText: "No. Handphone"),
+              keyboardType: TextInputType.phone,
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            // Form Email
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(labelText: "Email"),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: _saveProfile,
+              child: const Text("Simpan"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _avatarOption(int value, IconData icon) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedAvatar = value;
+        });
+      },
+      child: CircleAvatar(
+        radius: 30,
+        backgroundColor: selectedAvatar == value ? Colors.orange : Colors.grey[300],
+        child: Icon(icon, size: 35, color: Colors.black),
       ),
     );
   }
