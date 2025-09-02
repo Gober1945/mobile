@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'transfer.dart';
+
 import 'pengaturan.dart';
 
 class HomePage extends StatelessWidget {
@@ -68,7 +69,14 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 16,
               children: [
                 _menuItem(context, Icons.send, "Transfer", const TransferPage()),
-                _menuItem(context, Icons.settings, "Pengaturan", SettingPage()),
+<<<<<<< HEAD
+=======
+                _menuItem(context, Icons.arrow_downward, "Tarik Tunai", TarikTunaiPage()),
+                _menuItem(context, Icons.arrow_upward, "Setor Tunai", SetorTunaiPage()),
+                _menuItem(context, Icons.account_balance_wallet, "Top Up", TopUpPage()),
+                _menuItem(context, Icons.savings, "Deposito", DepositoPage()),
+>>>>>>> b2b58a0c45218ab22f06586579d0f5ee3bd32b0e
+                _menuItem(context, Icons.settings, "Pengaturan", const SettingPage()),
               ],
             ),
           ],

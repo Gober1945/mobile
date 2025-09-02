@@ -20,7 +20,7 @@ class SettingPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => InfoKelompok()),
+                MaterialPageRoute(builder: (context) => const InfoKelompok()),
               );
             },
           ),
