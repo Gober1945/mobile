@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'transfer.dart';
+<<<<<<< HEAD
+
+import 'pengaturan.dart';
+=======
 import 'infokelompok.dart';
 import 'profil.dart';
 import 'profil_data.dart';
@@ -7,6 +11,7 @@ import 'profil_data.dart';
 void main() {
   runApp(const MyApp());
 }
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -280,6 +285,29 @@ class _BerandaPageState extends State<BerandaPage> {
 
               const SizedBox(height: 20),
 
+<<<<<<< HEAD
+            // MENU GRID
+            GridView.count(
+              crossAxisCount: 3,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(16),
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              children: [
+                _menuItem(context, Icons.send, "Transfer", const TransferPage()),
+<<<<<<< HEAD
+=======
+                _menuItem(context, Icons.arrow_downward, "Tarik Tunai", TarikTunaiPage()),
+                _menuItem(context, Icons.arrow_upward, "Setor Tunai", SetorTunaiPage()),
+                _menuItem(context, Icons.account_balance_wallet, "Top Up", TopUpPage()),
+                _menuItem(context, Icons.savings, "Deposito", DepositoPage()),
+>>>>>>> b2b58a0c45218ab22f06586579d0f5ee3bd32b0e
+                _menuItem(context, Icons.settings, "Pengaturan", const SettingPage()),
+              ],
+            ),
+          ],
+=======
               // Grid Menu
               Padding(
                 padding: const EdgeInsets.all(16),
@@ -318,6 +346,7 @@ class _BerandaPageState extends State<BerandaPage> {
               )
             ],
           ),
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
         ),
       ),
 

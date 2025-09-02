@@ -1,5 +1,25 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+
+void main() {
+  runApp(const TransferApp());
+}
+
+class TransferApp extends StatelessWidget {
+  const TransferApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Bukti Transfer',
+      debugShowCheckedModeBanner: false,
+      home: TransferSuccessPage(),
+    );
+  }
+}
+=======
 import 'profil_data.dart';
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
 
 class TransferSuccessPage extends StatelessWidget {
   final String namaPenerima;
@@ -43,10 +63,20 @@ class TransferSuccessPage extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Detail Transaksi
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
+<<<<<<< HEAD
+                  TransactionRow(
+                      title: "Tanggal Transaksi", value: "29-12-2025"),
+                  TransactionRow(title: "Nama Pengirim", value: "Tembel"),
+                  TransactionRow(title: "Nama Penerima", value: "Ban Motor"),
+                  TransactionRow(
+                      title: "No. Rekening Tujuan", value: "124672352234"),
+                  TransactionRow(
+                      title: "Nominal Transaksi", value: "Rp. 300.000"),
+=======
                   ValueListenableBuilder<ProfileData>(
                     valueListenable: profileNotifier,
                     builder: (context, profile, _) {
@@ -72,6 +102,7 @@ class TransferSuccessPage extends StatelessWidget {
                     'Nominal Transfer',
                     'Rp ${nominal.toString()}',
                   ),
+>>>>>>> 7a37cc06ecba2772c331f9ece57d169504198900
                 ],
               ),
             ),
@@ -88,7 +119,7 @@ class TransferSuccessPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
