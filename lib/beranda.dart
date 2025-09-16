@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const BerandaPage(),
+      home: BerandaPage(),
     );
   }
 }
@@ -38,13 +38,13 @@ class _BerandaPageState extends State<BerandaPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Bagian Header
+              // Header
               Container(
                 color: Colors.white,
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    // Bagian atas: profil + notifikasi
+                    // Profil + Notifikasi
                     Row(
                       children: [
                         GestureDetector(
@@ -85,10 +85,12 @@ class _BerandaPageState extends State<BerandaPage> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "No. Rekening : 98374298973943",
-                                style: const TextStyle(
-                                    color: Colors.black54, fontSize: 12),
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
@@ -126,7 +128,7 @@ class _BerandaPageState extends State<BerandaPage> {
 
                     const SizedBox(height: 12),
 
-                    // Card saldo
+                    // Kartu Saldo
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
@@ -144,131 +146,161 @@ class _BerandaPageState extends State<BerandaPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ValueListenableBuilder<int>(
-                            valueListenable: saldoNotifier,
-                            builder: (context, saldo, _) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        "Total Saldo",
-                                        style: TextStyle(
-                                          color: Colors.white70,
-                                          fontSize: 14,
+                          // Total saldo + Riwayat
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Total Saldo",
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 32,
+                                child: OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                    side: BorderSide.none,
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.orange,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12),
+                                  ),
+                                  onPressed: () {},
+                                  child: const Text(
+                                    "Riwayat >",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(height: 8),
+
+                          // Nominal + Icon Mata
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ValueListenableBuilder<int>(
+                                  valueListenable: saldoNotifier,
+                                  builder: (context, saldo, _) {
+                                    return FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        _isVisible
+                                            ? "Rp ${saldo.toString()}"
+                                            : "*****",
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            _isVisible
-                                                ? "Rp ${saldo.toString()}"
-                                                : "*****",
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                _isVisible = !_isVisible;
-                                              });
-                                            },
-                                            child: Icon(
-                                              _isVisible
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off,
-                                              color: Colors.white,
-                                              size: 22,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      foregroundColor: Colors.orange,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: const Text("Riwayat >"),
-                                  ),
-                                ],
-                              );
-                            },
+                                    );
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _isVisible = !_isVisible;
+                                  });
+                                },
+                                child: Icon(
+                                  _isVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                              ),
+                            ],
                           ),
 
                           const SizedBox(height: 16),
                           const Divider(color: Colors.white70),
-
                           const SizedBox(height: 12),
 
-                          // Tabungan dan Deposito
+                          // Tabungan & Deposito
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text("Tabungan   >",
-                                      style: TextStyle(color: Colors.white)),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    "Rp 1.000.000",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  const Text("Deposito   >",
-                                      style: TextStyle(color: Colors.white)),
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        "Rp 0",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
+                              // Tabungan
+                              const Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Tabungan >",
+                                        style: TextStyle(color: Colors.white)),
+                                    SizedBox(height: 4),
+                                    Text(
+                                      "Rp 1.000.000",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
                                       ),
-                                      const SizedBox(width: 8),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.yellow[700],
-                                          foregroundColor: Colors.brown,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // Deposito
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    const Text("Deposito >",
+                                        style: TextStyle(color: Colors.white)),
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        const Flexible(
+                                          child: Text(
+                                            "Rp 0",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
                                           ),
                                         ),
-                                        onPressed: () {},
-                                        child: const Text(
-                                          "Buka Deposito",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                        const SizedBox(width: 8),
+                                        Flexible(
+                                          child: OutlinedButton(
+                                            style: OutlinedButton.styleFrom(
+                                              backgroundColor: Colors.yellow,
+                                              foregroundColor: Colors.brown,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 12),
+                                            ),
+                                            onPressed: () {},
+                                            child: const Text(
+                                              "Buka",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -291,7 +323,6 @@ class _BerandaPageState extends State<BerandaPage> {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                   children: [
-                    // Transfer (ada fungsi)
                     _buildMenuItem(Icons.send, "Transfer", () {
                       Navigator.push(
                         context,
@@ -312,7 +343,6 @@ class _BerandaPageState extends State<BerandaPage> {
                     _buildMenuItem(
                         Icons.account_balance_wallet, "Top Up E-Wallet", () {}),
                     _buildMenuItem(Icons.savings, "Deposito", () {}),
-                    // Pengaturan (pindah ke InfoKelompok)
                     _buildMenuItem(Icons.settings, "Pengaturan", () {
                       Navigator.push(
                         context,
@@ -359,9 +389,13 @@ class _BerandaPageState extends State<BerandaPage> {
           children: [
             Icon(icon, color: Colors.white, size: 30),
             const SizedBox(height: 8),
-            Text(title,
-                style: const TextStyle(color: Colors.white, fontSize: 12),
-                textAlign: TextAlign.center),
+            Text(
+              title,
+              style: const TextStyle(color: Colors.white, fontSize: 12),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ],
         ),
       ),
