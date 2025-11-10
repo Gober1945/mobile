@@ -14,7 +14,7 @@ class TransferPage extends StatelessWidget {
     final profile = profileNotifier.value;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true, // 👉 biar konten naik pas keyboard muncul
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
@@ -91,12 +91,26 @@ class TransferPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.all(8),
-                color: Colors.grey[200],
-                child: const Text('Saldo Anda : Rp. 1.000.000'),
+
+              // 🔥 Saldo mengikuti saldo asli dari Beranda
+              ValueListenableBuilder<int>(
+                valueListenable: saldoNotifier,
+                builder: (context, saldo, _) {
+                  return Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.grey[200],
+                    child: Text(
+                      'Saldo Anda : Rp. ${saldo.toString()}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  );
+                },
               ),
+
               const SizedBox(height: 16),
 
               // Catatan
@@ -140,6 +154,7 @@ class TransferPage extends StatelessWidget {
                           nominal: nominal,
                           namaPenerima: namaCtrl.text.trim(),
                           noRekening: noRekCtrl.text.trim(),
+                          catatan: catatanCtrl.text.trim(), // 🔹 dikirim ke konfirmasi
                         ),
                       ),
                     );
